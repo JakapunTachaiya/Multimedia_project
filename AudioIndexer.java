@@ -23,11 +23,11 @@ import javax.sound.sampled.DataLine.Info;
 public class AudioIndexer {
 	
 	
-	public AudioIndexer(int numFrames,String AudioName) {
+	public AudioIndexer(int numFrames,String AudioIndexPath) {
 		
 	
-		String foldername = AudioName;
-		String filePath = "dataBase/"+foldername;
+	
+		String filePath = AudioIndexPath;
 		File[] files = new File(filePath).listFiles();
 		String audioPath = null;
 		
@@ -50,19 +50,21 @@ public class AudioIndexer {
 			int readBytes = 0;
 			byte[] audioBuffer;
 			
-			FileWriter fw = new FileWriter("audioindex.txt",true);
+			String fileType = getParentPath(AudioIndexPath);
+			
+			FileWriter fw = new FileWriter(fileType+".audioindex",true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			FileInputStream inputStream;
 			
 			
 			File file = new File(audioPath);
 			
-			bw.write("" + AudioName + " ");
+			bw.write("" + getcurrentName(AudioIndexPath) + " ");
 			
 			int audiolen = (int)file.length();
 			bufferSize = (int) Math.round((double) audiolen * 42.0 / 30000.0);
 			int oneFrameSize = audiolen/numFrames;
-			System.out.println("audio: " + AudioName);
+			System.out.println("audio: " + AudioIndexPath);
 			System.out.println("oneFrameSize: " + oneFrameSize);
 			System.out.println("audiolen: " + audiolen);
 			System.out.println("bufferSize: " + bufferSize);
@@ -191,5 +193,21 @@ public class AudioIndexer {
 	        return ""; // empty extension
 	    }
 	    return name.substring(lastIndexOf);
+	}
+	private String getParentPath(String pathName) {
+	    String name = pathName;
+	    int lastIndexOf = name.lastIndexOf("\\");
+	    if (lastIndexOf == -1) {
+	        return ""; // empty extension
+	    }
+	    return name.substring(0,lastIndexOf);
+	}
+	private String getcurrentName(String pathName) {
+	    String name = pathName;
+	    int lastIndexOf = name.lastIndexOf("\\");
+	    if (lastIndexOf == -1) {
+	        return ""; // empty extension
+	    }
+	    return name.substring(lastIndexOf+1);
 	}
 }

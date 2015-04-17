@@ -15,34 +15,22 @@ public class ColorIndexer {
     int numFrames;
 
 	
-	public ColorIndexer(int numFrames,BufferedImage[] buffImage,String colorIndexName){
+	public ColorIndexer(int numFrames,BufferedImage[] buffImage,String colorIndexPath){
 		this.numFrames = numFrames;
 		
-		/*
-		String[] filenames = new String[12];
-		filenames[0] = "C:/Users/Cauchy/Documents/CSCI576/Project/vdo1/vdo1.rgb";
-		filenames[1] = "C:/Users/Cauchy/Documents/CSCI576/Project/vdo2/vdo2.rgb";
-		filenames[2] = "C:/Users/Cauchy/Documents/CSCI576/Project/vdo3/vdo3.rgb";
-		filenames[3] = "C:/Users/Cauchy/Documents/CSCI576/Project/vdo4/vdo4.rgb";
-		filenames[4] = "C:/Users/Cauchy/Documents/CSCI576/project/vdo5/vdo5.rgb";
-		filenames[5] = "C:/Users/Cauchy/Documents/CSCI576/project/vdo6/vdo6.rgb";
-		filenames[6] = "C:/Users/Cauchy/Documents/CSCI576/Project/vdo7/vdo7.rgb";
-		filenames[7] = "C:/Users/Cauchy/Documents/CSCI576/Project/vdo8/vdo8.rgb";
-		filenames[8] = "C:/Users/Cauchy/Documents/CSCI576/Project/vdo9/vdo9.rgb";
-		filenames[9] = "C:/Users/Cauchy/Documents/CSCI576/Project/vdo10/vdo10.rgb";
-		filenames[10] = "C:/Users/Cauchy/Documents/CSCI576/Project/vdo11/vdo11.rgb";
-		filenames[11] = "C:/Users/Cauchy/Documents/CSCI576/Project/vdo12/vdo12.rgb";
-		*/
 		
 		try{
-			FileWriter fw = new FileWriter("colorindex.txt",true);
+			
+			String fileType = getParentPath(colorIndexPath);
+			
+			FileWriter fw = new FileWriter(fileType+".colorindex",true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			
 			
 			//File file = new File(filenames[j]);
 			String[] colorindex = new String[numFrames];
 			
-			bw.write("" + colorIndexName + " ");
+			bw.write("" + getcurrentName(colorIndexPath) + " ");
 		    /*InputStream is = new FileInputStream(file);
 		    long len = file.length();
 		    byte[] bytes = new byte[(int)len];
@@ -129,7 +117,7 @@ public class ColorIndexer {
 	    	//[HHSV] H>>[0,16] value S>>[0,8] v>>[0,8]
 	    	bw.write("\n");
 	    	
-	    	System.out.println("Finished " + colorIndexName + "colorIdx");	
+	    	System.out.println("Finished " + getcurrentName(colorIndexPath) + "colorIdx");	
 				
 	    	
 			
@@ -138,6 +126,23 @@ public class ColorIndexer {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	private String getParentPath(String pathName) {
+	    String name = pathName;
+	    int lastIndexOf = name.lastIndexOf("\\");
+	    if (lastIndexOf == -1) {
+	        return ""; // empty extension
+	    }
+	    return name.substring(0,lastIndexOf);
+	}
+	private String getcurrentName(String pathName) {
+	    String name = pathName;
+	    int lastIndexOf = name.lastIndexOf("\\");
+	    if (lastIndexOf == -1) {
+	        return ""; // empty extension
+	    }
+	    return name.substring(lastIndexOf+1);
 	}
 	
 
@@ -206,5 +211,6 @@ public class ColorIndexer {
 			return "" + h + "" + s + "" + v;
 		}
 	}
+	
 	
 }

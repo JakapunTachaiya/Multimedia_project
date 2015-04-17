@@ -13,19 +13,21 @@ public class MotionIndexer {
     int numFrames;
     BufferedImage[] buffImage;
 	
-	public MotionIndexer(int numFrames,BufferedImage[] buffImage,String MotionIndexName) {
+	public MotionIndexer(int numFrames,BufferedImage[] buffImage,String MotionIndexPath) {
 		this.numFrames = numFrames;
 		this.buffImage = buffImage;
 		
-	
+		
+		String fileType = getParentPath(MotionIndexPath);
+		
 		
 		try{
-			FileWriter fw = new FileWriter("motionindex.txt",true);
+			FileWriter fw = new FileWriter(fileType+".motionindex",true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			
 			
 			ArrayList<Macroblock> macroBlocks = new ArrayList<Macroblock>();
-			bw.write("" + MotionIndexName + " ");
+			bw.write("" + getcurrentName(MotionIndexPath) + " ");
 				
 			
 			
@@ -73,7 +75,7 @@ public class MotionIndexer {
 	    	System.out.println("maxAverage: " + maxAverage);
 	    	//System.out.println("maxDiff: " + maxDiff);
 	    	bw.write("\n");
-	    	System.out.println("Finished " + MotionIndexName + "th video");
+	    	System.out.println("Finished " + getcurrentName(MotionIndexPath));
 	    	maxAverage = 0;
 	    	bw.close();
 	    	
@@ -81,5 +83,22 @@ public class MotionIndexer {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	private String getParentPath(String pathName) {
+	    String name = pathName;
+	    int lastIndexOf = name.lastIndexOf("\\");
+	    if (lastIndexOf == -1) {
+	        return ""; // empty extension
+	    }
+	    return name.substring(0,lastIndexOf);
+	}
+	private String getcurrentName(String pathName) {
+	    String name = pathName;
+	    int lastIndexOf = name.lastIndexOf("\\");
+	    if (lastIndexOf == -1) {
+	        return ""; // empty extension
+	    }
+	    return name.substring(lastIndexOf+1);
 	}
 }

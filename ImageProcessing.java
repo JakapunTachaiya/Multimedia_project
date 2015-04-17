@@ -20,9 +20,9 @@ public class ImageProcessing {
 	private BufferedImage[] BufferedImageObj;
 	
 	
-	public ImageProcessing(String foldername) {
+	public ImageProcessing(String folderPath) {
 		NumberOfFrame = 0;
-		readImage(foldername);
+		readImage(folderPath);
 		
 	}
 	
@@ -99,27 +99,11 @@ public class ImageProcessing {
 		    BufferedImageObj[index] = img;
 		
 	}
-	/*
-	public void setRGBfromByte(int index,int x,int y,byte r,byte g,byte b){
-		int red = r & 0xFF;
-		int green = g & 0xFF;
-		int blue = b & 0xFF;
-		//ImageCoordObj[index].rgb[y][x].int_rgb[0] = red;
-		//ImageCoordObj[index].rgb[y][x].int_rgb[1] = green;
-		//ImageCoordObj[index].rgb[y][x].int_rgb[2] = blue;
-		//System.out.println("index "+index+"[x,y] "+x+" "+y+" ["+r+","+g+","+b+"]");
-	}
+
 	
-	
-	public ImageCoord getRGB(int frame){
-			
-		return null;
-	}
-	*/
-	
-	public void readImage(String foldername){
+	public void readImage(String folderpath){
 		
-		String filePath = "dataBase/"+foldername;
+		String filePath = folderpath;
 		File[] files = new File(filePath).listFiles();
 		ArrayList<String> rgbfiles = new ArrayList<String>();
 		
@@ -135,14 +119,9 @@ public class ImageProcessing {
 		
 		NumberOfFrame = rgbfiles.size();
 		
-		//ImageCoordObj = new ImageCoord[NumberOfFrame];
 		BufferedImageObj = new BufferedImage[NumberOfFrame];
 		
-		/*
-		for (int i=0;i<ImageCoordObj.length;i++){
-			ImageCoordObj[i] = new ImageCoord();
-		}
-		*/
+
 		
 		for(int index = 0;index<NumberOfFrame;index++){
 			//System.out.println(rgbfiles.get(index));

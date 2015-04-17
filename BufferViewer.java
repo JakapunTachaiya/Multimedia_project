@@ -36,7 +36,7 @@ public class BufferViewer extends JFrame {
 		    frame.pack();
 		    frame.setVisible(true);
 		    
-		    for(int i = 0; i < 600; i++){
+		    for(int i = 0; i < BufferedImageObj.length; i++){
 
 		    panel.removeAll();
 		    panel.add (new JLabel (new ImageIcon (BufferedImageObj[i])));
