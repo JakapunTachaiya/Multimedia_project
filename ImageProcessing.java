@@ -15,14 +15,13 @@ public class ImageProcessing {
 	private  int width = 352; 
 	private  int height = 288; 
 	
-	private int NumberOfImg;
+	private int NumberOfFrame;
 	
-	private ImageCoord[] ImageCoordObj;
 	private BufferedImage[] BufferedImageObj;
 	
 	
 	public ImageProcessing(String foldername) {
-		NumberOfImg = 0;
+		NumberOfFrame = 0;
 		readImage(foldername);
 		
 	}
@@ -42,6 +41,15 @@ public class ImageProcessing {
 	public BufferedImage[] getBufferedImage() {
 		return BufferedImageObj;
 	}
+	
+	public int getNumberOfFrame() {
+		return NumberOfFrame;
+	}
+
+	public void setNumberOfFrame(int numberOfFrame) {
+		NumberOfFrame = numberOfFrame;
+	}
+
 	public void setBufferedImage(String fileName,int index) {
 		
 		 BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -69,12 +77,12 @@ public class ImageProcessing {
 						byte g = bytes[ind+height*width];
 						byte b = bytes[ind+height*width*2]; 
 						
-						setRGBfromByte(index,x,y,r,g,b);
+						//setRGBfromByte(index,x,y,r,g,b);
 						//System.out.println(  "X,Y "+x+","+ y+" ["+r+","+g+","+b+"] ");
 						
 						int pix = 0xff000000 | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff);
 						//int pix = ((a << 24) + (r << 16) + (g << 8) + b);
-						System.out.println(pix);
+						//System.out.println(pix);
 						img.setRGB(x,y,pix);
 						ind++;
 					}
@@ -91,32 +99,23 @@ public class ImageProcessing {
 		    BufferedImageObj[index] = img;
 		
 	}
+	/*
 	public void setRGBfromByte(int index,int x,int y,byte r,byte g,byte b){
 		int red = r & 0xFF;
 		int green = g & 0xFF;
 		int blue = b & 0xFF;
-		ImageCoordObj[index].rgb[y][x].int_rgb[0] = red;
-		ImageCoordObj[index].rgb[y][x].int_rgb[1] = green;
-		ImageCoordObj[index].rgb[y][x].int_rgb[2] = blue;
-		System.out.println("index "+index+"[x,y] "+x+" "+y+" ["+r+","+g+","+b+"]");
-		
+		//ImageCoordObj[index].rgb[y][x].int_rgb[0] = red;
+		//ImageCoordObj[index].rgb[y][x].int_rgb[1] = green;
+		//ImageCoordObj[index].rgb[y][x].int_rgb[2] = blue;
+		//System.out.println("index "+index+"[x,y] "+x+" "+y+" ["+r+","+g+","+b+"]");
 	}
 	
-	public ArrayList<BufferedImage> getListBufferedImage(String foldername){
-	
-		
-		
-		return null;
-	}
 	
 	public ImageCoord getRGB(int frame){
-		
-		
-		
-		
+			
 		return null;
 	}
-	
+	*/
 	
 	public void readImage(String foldername){
 		
@@ -134,10 +133,10 @@ public class ImageProcessing {
 		}
 		
 		
-		NumberOfImg = rgbfiles.size();
+		NumberOfFrame = rgbfiles.size();
 		
-		ImageCoordObj = new ImageCoord[NumberOfImg];
-		BufferedImageObj = new BufferedImage[NumberOfImg];
+		//ImageCoordObj = new ImageCoord[NumberOfFrame];
+		BufferedImageObj = new BufferedImage[NumberOfFrame];
 		
 		/*
 		for (int i=0;i<ImageCoordObj.length;i++){
@@ -145,8 +144,8 @@ public class ImageProcessing {
 		}
 		*/
 		
-		for(int index = 0;index<NumberOfImg;index++){
-			System.out.println(rgbfiles.get(index));
+		for(int index = 0;index<NumberOfFrame;index++){
+			//System.out.println(rgbfiles.get(index));
 			setBufferedImage(rgbfiles.get(index),index);
 	
 		}
@@ -154,6 +153,7 @@ public class ImageProcessing {
 	
 		
 	}
-	
+
+
 
 }
