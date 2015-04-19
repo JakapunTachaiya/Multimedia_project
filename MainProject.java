@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import javax.media.MediaLocator;
 import javax.swing.*;
 
+
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -33,18 +34,18 @@ public class MainProject {
 		for (int i = 0;i<dbfiles.length;i++) {
 	
 		    	dbpath[i] = dbfiles[i].getPath();
-		    	System.out.println(dbpath[i]);
+		    	//System.out.println(dbpath[i]);
 		    
 		}
 		
 		for (int i = 0;i<qpath.length;i++) {
 		  
 		    	qpath[i] = qfiles[i].getPath();
-		    	System.out.println(qpath[i]);
+		    	//System.out.println(qpath[i]);
 		    
 		}
 		
-		
+		/*
 		
 		//dataBase
 		
@@ -81,9 +82,31 @@ public class MainProject {
 			//BufferViewerObj.playBufferViewer();
 		}
 		
+		*/
 		
-	
-
+		IndexDescriptor indexDescriptorObj = new IndexDescriptor();
+		DescriptorInfo tmpDescript = indexDescriptorObj.getDescriptorInfo("interview", "second");
+				
+		
+		printArry(tmpDescript.audioVal);
+		printArry(tmpDescript.ColorVal);
+		printArry(tmpDescript.motionVal);
+		System.out.println(tmpDescript.audioPercent);
+		System.out.println(tmpDescript.colorPercent);
+		System.out.println(tmpDescript.motionPercent);
+		System.out.println(tmpDescript.avgPercent);
+		
 	}
+	
+	
+ 
+	private static void printArry(double[] value){
+			for(int j=0;j<value.length;j++){
+				System.out.print( value[j]+" ");
+
+			}
+			System.out.println();
+			
+	} 
 
 }
